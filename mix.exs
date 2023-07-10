@@ -9,9 +9,36 @@ defmodule MC.MixProject do
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
-      deps: deps()
+      deps: deps(),
+      docs: [
+        main: "MC", # The main page in the docs
+        extras: ["README.md"],
+        before_closing_body_tag: &before_closing_body_tag/1
+      ],
     ]
   end
+
+  defp before_closing_body_tag(:html) do
+    """
+    <!-- HTML injected at the end of the <body> element -->
+      <style>
+    </style>
+    <script type="module">
+      import { h, Component, render } from 'https://esm.sh/preact';
+      import htm from 'https://esm.sh/htm';
+      // Initialize htm with Preact
+      const html = htm.bind(h);
+
+      function App (props) {
+        return html`<h1>And here is a freaking PREACT app, ${props.name}!</h1>`;
+      }
+
+      render(html`<${App} name="World" />`, document.getElementById('app'));
+    </script>
+    """
+  end
+
+  defp before_closing_body_tag(:epub), do: ""
 
   # Configuration for the OTP application.
   #
@@ -49,7 +76,8 @@ defmodule MC.MixProject do
       {:telemetry_poller, "~> 1.0"},
       {:gettext, "~> 0.20"},
       {:jason, "~> 1.2"},
-      {:plug_cowboy, "~> 2.5"}
+      {:plug_cowboy, "~> 2.5"},
+      {:ex_doc, "~> 0.27", only: :dev, runtime: false},
     ]
   end
 
