@@ -1,20 +1,25 @@
 defmodule Documentation.Macros do
 
-  def __using__(_) do
-    quote do
-      import Documentation.Macros
-
-      @block block
-    end
+  def block(type, title, content) do
+      """
+      > #### #{title} {: .#{type}}
+      >
+      > #{content}
+      """
   end
 
-  defmacro block(type, title, content) do
-    quote do
+  def tabs(content) when is_map(content) do
       """
-      > #### #{unquote title} {: .#{unquote type}}
-      >
-      > #{unquote content}
+      <!-- tabs-open -->
+        #{for {title, body} <- content do
+          """
+
+          ### #{title}
+
+          #{body}
+          """
+      end}
+      <!-- tabs-close -->
       """
-    end
   end
 end
