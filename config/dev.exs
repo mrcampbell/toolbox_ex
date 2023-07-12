@@ -2,8 +2,8 @@ import Config
 
 # Configure your database
 config :toolbox, MC.Repo,
-  username: "postgres",
-  password: "postgres",
+  username: "dev",
+  password: "password",
   hostname: "localhost",
   database: "toolbox_dev",
   stacktrace: true,
