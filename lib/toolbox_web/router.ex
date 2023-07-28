@@ -18,6 +18,13 @@ defmodule MCWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
+
+    live "/persons", PersonLive.Index, :index
+    live "/persons/new", PersonLive.Index, :new
+    live "/persons/:id/edit", PersonLive.Index, :edit
+
+    live "/persons/:id", PersonLive.Show, :show
+    live "/persons/:id/show/edit", PersonLive.Show, :edit
   end
 
   # Other scopes may use custom stacks.
