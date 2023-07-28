@@ -15,5 +15,6 @@ defmodule MC.Form.Person do
     person
     |> cast(attrs, [:name, :lucky_number, :birthday])
     |> validate_required([:name, :lucky_number, :birthday])
+    |> validate_number(:lucky_number, greater_than: 0)
   end
 end
