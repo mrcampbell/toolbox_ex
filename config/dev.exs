@@ -6,6 +6,7 @@ config :toolbox, MC.Repo,
   password: "password",
   hostname: "localhost",
   database: "toolbox_dev",
+  port: 6543,
   stacktrace: true,
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
