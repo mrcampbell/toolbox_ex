@@ -25,6 +25,13 @@ defmodule MCWeb.Router do
 
     live "/persons/:id", PersonLive.Show, :show
     live "/persons/:id/show/edit", PersonLive.Show, :edit
+
+    live "/pets", PetLive.Index, :index
+    live "/pets/new", PetLive.Index, :new
+    live "/pets/:id/edit", PetLive.Index, :edit
+
+    live "/pets/:id", PetLive.Show, :show
+    live "/pets/:id/show/edit", PetLive.Show, :edit
   end
 
   # Other scopes may use custom stacks.

@@ -19,4 +19,19 @@ defmodule MC.FormFixtures do
 
     person
   end
+
+  @doc """
+  Generate a pet.
+  """
+  def pet_fixture(attrs \\ %{}) do
+    {:ok, pet} =
+      attrs
+      |> Enum.into(%{
+        name: "some name",
+        fur_color: "some fur_color"
+      })
+      |> MC.Form.create_pet()
+
+    pet
+  end
 end

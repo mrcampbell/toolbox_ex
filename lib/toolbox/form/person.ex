@@ -7,6 +7,14 @@ defmodule MC.Form.Person do
     field :lucky_number, :integer
     field :birthday, :date
 
+    has_many :pets, MC.Form.Pet
+
+    embeds_one :personality, MC.Form.Personality, on_replace: :delete do
+      field :favorite_color, :string
+      field :favorite_food, :string
+      field :in_three_words, :string
+    end
+
     timestamps()
   end
 

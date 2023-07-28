@@ -6,6 +6,7 @@
     </.link>
   </:actions>
 </.header>
+<div id="time-wrapper"></div>
 
 <.table
   id="persons"
@@ -31,7 +32,12 @@
   </:action>
 </.table>
 
-<.modal :if={@live_action in [:new, :edit]} id="person-modal" show on_cancel={JS.patch(~p"/persons")}>
+<.modal
+  :if={@live_action in [:new, :edit]}
+  id="person-modal"
+  show
+  on_cancel={JS.patch(~p"/persons")}
+>
   <.live_component
     module={MCWeb.PersonLive.FormComponent}
     id={@person.id || :new}

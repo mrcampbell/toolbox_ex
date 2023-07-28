@@ -60,4 +60,60 @@ defmodule MC.FormTest do
       assert %Ecto.Changeset{} = Form.change_person(person)
     end
   end
+
+  describe "pets" do
+    alias MC.Form.Pet
+
+    import MC.FormFixtures
+
+    @invalid_attrs %{name: nil, fur_color: nil}
+
+    test "list_pets/0 returns all pets" do
+      pet = pet_fixture()
+      assert Form.list_pets() == [pet]
+    end
+
+    test "get_pet!/1 returns the pet with given id" do
+      pet = pet_fixture()
+      assert Form.get_pet!(pet.id) == pet
+    end
+
+    test "create_pet/1 with valid data creates a pet" do
+      valid_attrs = %{name: "some name", fur_color: "some fur_color"}
+
+      assert {:ok, %Pet{} = pet} = Form.create_pet(valid_attrs)
+      assert pet.name == "some name"
+      assert pet.fur_color == "some fur_color"
+    end
+
+    test "create_pet/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Form.create_pet(@invalid_attrs)
+    end
+
+    test "update_pet/2 with valid data updates the pet" do
+      pet = pet_fixture()
+      update_attrs = %{name: "some updated name", fur_color: "some updated fur_color"}
+
+      assert {:ok, %Pet{} = pet} = Form.update_pet(pet, update_attrs)
+      assert pet.name == "some updated name"
+      assert pet.fur_color == "some updated fur_color"
+    end
+
+    test "update_pet/2 with invalid data returns error changeset" do
+      pet = pet_fixture()
+      assert {:error, %Ecto.Changeset{}} = Form.update_pet(pet, @invalid_attrs)
+      assert pet == Form.get_pet!(pet.id)
+    end
+
+    test "delete_pet/1 deletes the pet" do
+      pet = pet_fixture()
+      assert {:ok, %Pet{}} = Form.delete_pet(pet)
+      assert_raise Ecto.NoResultsError, fn -> Form.get_pet!(pet.id) end
+    end
+
+    test "change_pet/1 returns a pet changeset" do
+      pet = pet_fixture()
+      assert %Ecto.Changeset{} = Form.change_pet(pet)
+    end
+  end
 end
