@@ -19,6 +19,8 @@ defmodule MCWeb.Router do
 
     get "/", PageController, :home
 
+    live "/demo", DemoLive, :index
+
     live "/persons", PersonLive.Index, :index
     live "/persons/new", PersonLive.Index, :new
     live "/persons/:id/edit", PersonLive.Index, :edit
